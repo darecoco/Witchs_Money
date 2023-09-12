@@ -10,10 +10,10 @@ import javax.swing.JPanel;
 public class Background extends JFrame{
 	ImageIcon icon;
 	public Background(int width, int height) {
-		String imagePath = "C:\\WitchMoney\\Witch's_money\\src\\images\\TV - 1.png";
+		String imagePath = "images/TV - 1.png";
 		File img = new File(imagePath);
 		if(img.isFile()) {
-			icon = new ImageIcon(imagePath);			
+			icon = new ImageIcon(imagePath);		
 		}else {
 			JOptionPane.showMessageDialog(null, "이미지 로딩 오류");
 			System.exit(0);

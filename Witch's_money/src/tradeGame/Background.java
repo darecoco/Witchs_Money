@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 public class Background extends JFrame{
 	ImageIcon icon;
 	public Background(int width, int height) {
-		String imagePath = "C:\\WitchMoney\\Witch's_money\\src\\images\\testImage.png";
+		String imagePath = "images/testImage.png";
 		File img = new File(imagePath);
 		if(img.isFile()) {
 			icon = new ImageIcon(imagePath);			
