@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 public class Rhythm_main{
 	public static void main(String[] args) {
-		Background bg = new Background(1920, 1080);
+		new Background();
+//		new MoveMonster();
 	}
 }
