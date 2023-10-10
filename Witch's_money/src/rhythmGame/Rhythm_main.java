@@ -5,6 +5,9 @@ package rhythmGame;
 public class Rhythm_main{
 	public static void main(String[] args) {
 		Background bg = new Background();
-		MoveMonster enemy = new MoveMonster(bg.getBG());
+		MoveMonster enemy = new MoveMonster(bg.getBG(), 690, 800);
+		MoveMonster enemy2 = new MoveMonster(bg.getBG(), 825, 800);
+		MoveMonster enemy3 = new MoveMonster(bg.getBG(), 960, 800);
+		MoveMonster enemy4 = new MoveMonster(bg.getBG(), 1097, 800);
 	}
 }

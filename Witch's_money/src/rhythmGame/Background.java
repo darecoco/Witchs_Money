@@ -8,17 +8,16 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Background extends JFrame{
-	private ImageIcon icon, icon2;
+public class Background{
+	private JFrame base = new JFrame();
+	private ImageIcon icon;
 	private JPanel background;
-	private JLabel red;
+	
 	public Background() {
 		String imagePath = "images/rhythm/bg/main_game.png";
-		String imagePath2 = "images/rhythm/enemy/red.png";
 		File img = new File(imagePath);
 		if(img.isFile()) {
 			icon = new ImageIcon(imagePath);
-			icon2 = new ImageIcon(imagePath2);
 		}else {
 			JOptionPane.showMessageDialog(null, "이미지 로딩 오류");
 			System.exit(0);
@@ -33,19 +32,21 @@ public class Background extends JFrame{
             }
         };
         
-        red = new JLabel(icon2);
-//        red.setLocation(400, 400);
-        background.add(red);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("리듬겜 기본 창");
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setUndecorated(true);
-        setLocationRelativeTo(null);
-        setContentPane(background);
-        setVisible(true);
+        base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        base.setTitle("리듬겜 기본 창");
+        base.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        base.setUndecorated(true);
+        base.setLocationRelativeTo(null);
+        base.setLayout(null);
+        base.setContentPane(background);
+        base.setVisible(true);
 	}
 	
-	JPanel getBG() {
+	JFrame getFrame() {
+		return base;
+	}
+	
+	JPanel getBG() { //JPanel background
 		return background;
 	}
 }
