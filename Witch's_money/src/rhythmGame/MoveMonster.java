@@ -9,9 +9,9 @@ import javax.swing.JPanel;
 
 public class MoveMonster{
 	/* 처음 줄 690 800
-	 * 두 번째 줄 825 950
-	 * 세 번째 줄 965 1085
-	 * 네 번째 줄 1100 1225*/
+	 * 두 번째 줄 825 800
+	 * 세 번째 줄 960 800
+	 * 네 번째 줄 1097 800*/
 	private ImageIcon monster;
 	private JLabel enemy;
 	
