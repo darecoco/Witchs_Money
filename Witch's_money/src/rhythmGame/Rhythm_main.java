@@ -9,5 +9,7 @@ public class Rhythm_main{
 		MoveMonster enemy2 = new MoveMonster(bg.getBG(), 825, -50);
 		MoveMonster enemy3 = new MoveMonster(bg.getBG(), 960, -10);
 		MoveMonster enemy4 = new MoveMonster(bg.getBG(), 1097, 0);
+		
+		enemy.moveStart();
 	}
 }
