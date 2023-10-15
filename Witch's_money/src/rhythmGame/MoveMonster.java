@@ -2,15 +2,16 @@ package rhythmGame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class MoveMonster{
+public class MoveMonster implements KeyListener{
 	/* 처음 줄 690 800
 	 * 두 번째 줄 825 800
 	 * 세 번째 줄 960 800
@@ -32,6 +33,10 @@ public class MoveMonster{
 		
 		// enemy 절대 위치
         enemy.setBounds(x, y, monster.getIconWidth(), monster.getIconHeight());
+        
+        bg.addKeyListener(this);
+        bg.setFocusable(true);
+        bg.requestFocus();
         bg.add(enemy);
         bg.repaint();
         
@@ -45,6 +50,8 @@ public class MoveMonster{
 
                 // 이미지의 위치를 업데이트
                 enemy.setLocation(x, move_y);
+                
+                
 
                 // 화면 다시 그리기
                 bg.repaint();
@@ -60,4 +67,25 @@ public class MoveMonster{
 	void moveStart() {
 		timer.start();
 	}
+	
+	@Override
+    public void keyTyped(KeyEvent e) {
+        // 사용하지 않음
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            // 'A' 키가 눌렸을 때 타이머 일시 정지
+            timer.stop();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_A) {
+            // 'A' 키가 놓예졌을 때 타이머 다시 시작
+            timer.start();
+        }
+    }
 }
