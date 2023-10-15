@@ -9,11 +9,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Rhythm_bg{
-	private JFrame base = new JFrame();
 	private ImageIcon icon;
 	private JPanel background;
 	
-	public Rhythm_bg() {
+	public Rhythm_bg(JFrame base) {
 		String imagePath = "images/rhythm/bg/main_game.png";
 		File img = new File(imagePath);
 		if(img.isFile()) {
@@ -32,18 +31,15 @@ public class Rhythm_bg{
             }
         };
         
-        base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         base.setTitle("리듬겜 기본 창");
-        base.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        base.setUndecorated(true);
-        base.setLocationRelativeTo(null);
-        base.setLayout(null);
         base.setContentPane(background);
         base.setVisible(true);
-	}
-	
-	JFrame getFrame() {
-		return base;
+        
+        Rhythm_moveMonster enemy = new Rhythm_moveMonster(getBG(), 690, -100);
+		Rhythm_moveMonster enemy2 = new Rhythm_moveMonster(getBG(), 825, -50);
+		Rhythm_moveMonster enemy3 = new Rhythm_moveMonster(getBG(), 960, -10);
+		Rhythm_moveMonster enemy4 = new Rhythm_moveMonster(getBG(), 1097, 0);
+		enemy.moveStart();
 	}
 	
 	JPanel getBG() { //JPanel background

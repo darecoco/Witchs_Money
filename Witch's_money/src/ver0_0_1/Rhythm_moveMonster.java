@@ -50,8 +50,6 @@ public class Rhythm_moveMonster implements KeyListener{
 
                 // 이미지의 위치를 업데이트
                 enemy.setLocation(x, move_y);
-                
-                
 
                 // 화면 다시 그리기
                 bg.repaint();
