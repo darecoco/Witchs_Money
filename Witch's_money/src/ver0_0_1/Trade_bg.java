@@ -1,4 +1,4 @@
-package tradeGame;
+package ver0_0_1;
 
 import java.awt.Graphics;
 import java.io.File;
@@ -7,9 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Background extends JFrame{
+public class Trade_bg extends JFrame{
 	ImageIcon icon;
-	public Background(int width, int height) {
+	public Trade_bg(int width, int height) {
 		String imagePath = "images/testImage.png";
 		File img = new File(imagePath);
 		if(img.isFile()) {

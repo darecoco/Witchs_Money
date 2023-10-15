@@ -1,4 +1,4 @@
-package main;
+package ver0_0_1;
 
 /* 리듬게임과 무역게임을 합치는 클래스 */
 

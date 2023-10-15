@@ -1,4 +1,4 @@
-package rhythmGame;
+package ver0_0_1;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class MoveMonster implements KeyListener{
+public class Rhythm_moveMonster implements KeyListener{
 	/* 처음 줄 690 800
 	 * 두 번째 줄 825 800
 	 * 세 번째 줄 960 800
@@ -20,7 +20,7 @@ public class MoveMonster implements KeyListener{
 	private JLabel enemy;
 	private Timer timer;
 	
-	public MoveMonster(JPanel bg, int x, int y) {
+	public Rhythm_moveMonster(JPanel bg, int x, int y) {
 		String imagePath = "images/rhythm/enemy/red.png";
 		File img = new File(imagePath);
 		if(img.isFile()) {

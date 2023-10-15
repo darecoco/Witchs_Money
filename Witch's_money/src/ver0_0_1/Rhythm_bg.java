@@ -1,4 +1,4 @@
-package rhythmGame;
+package ver0_0_1;
 
 import java.awt.Graphics;
 import java.io.File;
@@ -8,12 +8,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class Background{
+public class Rhythm_bg{
 	private JFrame base = new JFrame();
 	private ImageIcon icon;
 	private JPanel background;
 	
-	public Background() {
+	public Rhythm_bg() {
 		String imagePath = "images/rhythm/bg/main_game.png";
 		File img = new File(imagePath);
 		if(img.isFile()) {

@@ -1,4 +1,4 @@
-package main;
+package ver0_0_1;
 
 import java.awt.event.*;
 import javax.swing.*;

@@ -1,11 +1,11 @@
-package tradeGame;
+package ver0_0_1;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.*;
 
-public class Illusion_witch extends JFrame{
+public class Trade_Test extends JFrame{
 	private int frame[] = {1, 2, 3, 4, 3, 2};
 	private ImageIcon icon;
 	private String image_name = "C:\\WitchMoney\\Witch's_money\\src\\images\\witch_illustion";
