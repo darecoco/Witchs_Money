@@ -12,8 +12,8 @@ public class Rhythm_bg{
 	private ImageIcon icon;
 	private JPanel background;
 	
-	public Rhythm_bg(JFrame base) {
-		String imagePath = "images/rhythm/bg/main_game.png";
+	public Rhythm_bg(JFrame base, String room) {
+		String imagePath = "images/rhythm/bg/" + room + ".png";
 		File img = new File(imagePath);
 		if(img.isFile()) {
 			icon = new ImageIcon(imagePath);

@@ -9,14 +9,14 @@ public class Cooperation{
 	
 	Cooperation(){
 		base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		base.setTitle("리듬겜 기본 창");
+		base.setTitle("메인화면");
 		base.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		base.setUndecorated(true);
 		base.setLocationRelativeTo(null);
 		base.setLayout(null);
 		base.setVisible(true);
 		
-		new Rhythm_bg(getFrame());
+		new Rhythm_main(getFrame());
 	}
 	
 	JFrame getFrame() {
