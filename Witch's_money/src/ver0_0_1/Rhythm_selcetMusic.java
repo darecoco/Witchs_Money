@@ -1,23 +1,19 @@
 package ver0_0_1;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.Timer;
+import java.util.concurrent.*;
 
 public class Rhythm_selcetMusic {
 	private int selectedMusic = 0;
 	private String selectedMusicName = "";
-	private Timer timer;
 	
 	public Rhythm_selcetMusic() {
 		setSelectedMusic();
@@ -39,68 +35,52 @@ public class Rhythm_selcetMusic {
 	        e.printStackTrace(); // 예외 메시지 출력
 	    }
 	    
-//	    File audioFile = new File("audio/rhythm/" + selectedMusicName); // 배경 음악 파일 경로
-//	    String mp3Path = audioFile.getPath();
-	    try {
-            File audioFile = new File("audio/rhythm/" + selectedMusicName); // 배경 음악 파일 경로
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+	    CountDownLatch latch = new CountDownLatch(1);
+	 // 음악 재생 스레드 시작
+        Thread musicThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    File audioFile = new File("audio/rhythm/" + selectedMusicName + ".wav");
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
 
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioStream);
+                    Clip clip = AudioSystem.getClip();
+                    clip.open(audioStream);
+                    clip.start();
+//                    clip.loop(Clip.LOOP_CONTINUOUSLY); //무한반복
 
-            clip.loop(Clip.LOOP_CONTINUOUSLY); // 무한 반복
-            clip.start();
+                    // 음악 재생이 완료되면 CountDownLatch 카운트 감소
+                    clip.addLineListener(event -> {
+                        if (event.getType() == javax.sound.sampled.LineEvent.Type.STOP) {
+                            latch.countDown();
+                        }
+                    });
 
-            // 배경 음악이 재생되는 동안 다른 작업 수행
-            timer = new Timer(10, new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                	int i = 0;
-                	for(i = 0; i < 100; i++) {
-                		System.out.println(i);
-                		timer.stop();
-                		timer.restart();
-                	}
+                    // 음악 재생 중에 다른 작업 수행
+
+                } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+                    e.printStackTrace();
+                    latch.countDown(); // 예외 발생 시도 CountDownLatch 카운트 감소
                 }
-            });
-            timer.start();
+            }
+        });
 
-            // 배경 음악 종료
-            clip.stop();
-            clip.close();
-        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+        musicThread.start();
+
+        // CountDownLatch가 0이 될 때까지 대기
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//	    try {
-//            Bitstream bitstream = new Bitstream(new FileInputStream(mp3Path));
-//            javazoom.jl.decoder.Decoder decoder = new javazoom.jl.decoder.Decoder();
-//
-//            // Player 인스턴스를 생성하고 초기화
-//            AdvancedPlayer player = new AdvancedPlayer(new FileInputStream(mp3Path));
-//
-//            // 재생이 끝났을 때의 동작을 정의
-//            player.setPlayBackEvent(new PlaybackEventAdapter() {
-//                @Override
-//                public void playbackFinished(PlaybackEvent evt) {
-//                    if (evt.getFrame().equals(PlaybackEvent.Stopped)) {
-//                        // 재생이 끝나면 원하는 동작을 수행
-//                        System.out.println("Playback Finished");
-//                    }
-//                }
-//            });
-//
-//            player.play();
-//        } catch (JavaLayerException | IOException e) {
-//            e.printStackTrace();
-//        }
-	}
+    }
 
 	public int getSelectedMusic() {
 		return selectedMusic;
 	}
 
 	public void setSelectedMusic() {
-		this.selectedMusic = (int) (Math.random()*2) + 1;
+		this.selectedMusic = (int) (Math.random() * 3) + 1;
 	}
 	
 	public static void main(String[] args) {
