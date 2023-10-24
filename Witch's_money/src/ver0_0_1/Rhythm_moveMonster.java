@@ -19,8 +19,10 @@ public class Rhythm_moveMonster implements KeyListener{
 	private ImageIcon monster;
 	private JLabel enemy;
 	private Timer timer;
+	private int x, y;
 	
 	public Rhythm_moveMonster(JPanel bg, int x, int y) {
+		setX(x); setY(y);
 		String imagePath = "images/rhythm/enemy/red.png";
 		File img = new File(imagePath);
 		if(img.isFile()) {
@@ -58,12 +60,32 @@ public class Rhythm_moveMonster implements KeyListener{
 
 	}
 	
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
 	JLabel getRed() {
 		return enemy;
 	}
 	
 	void moveStart() {
 		timer.start();
+	}
+	
+	void reset(int x, int y) {
+		enemy.setLocation(x, y);
 	}
 	
 	@Override
@@ -75,7 +97,7 @@ public class Rhythm_moveMonster implements KeyListener{
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_A) {
             // 'A' 키가 눌렸을 때 타이머 일시 정지
-            timer.stop();
+        	reset(x, y);
         }
     }
 
@@ -83,7 +105,6 @@ public class Rhythm_moveMonster implements KeyListener{
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_A) {
             // 'A' 키가 놓예졌을 때 타이머 다시 시작
-            timer.start();
         }
     }
 }

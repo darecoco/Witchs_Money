@@ -40,6 +40,9 @@ public class Rhythm_bg{
 		Rhythm_moveMonster enemy3 = new Rhythm_moveMonster(getBG(), 960, -10);
 		Rhythm_moveMonster enemy4 = new Rhythm_moveMonster(getBG(), 1097, 0);
 		enemy.moveStart();
+		enemy2.moveStart();
+		enemy3.moveStart();
+		enemy4.moveStart();
 	}
 	
 	JPanel getBG() { //JPanel background
