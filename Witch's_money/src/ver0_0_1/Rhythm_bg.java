@@ -34,15 +34,6 @@ public class Rhythm_bg{
         base.setTitle("리듬겜 기본 창");
         base.setContentPane(background);
         base.setVisible(true);
-        
-        Rhythm_moveMonster enemy = new Rhythm_moveMonster(getBG(), 690, -100);
-		Rhythm_moveMonster enemy2 = new Rhythm_moveMonster(getBG(), 825, -50);
-		Rhythm_moveMonster enemy3 = new Rhythm_moveMonster(getBG(), 960, -10);
-		Rhythm_moveMonster enemy4 = new Rhythm_moveMonster(getBG(), 1097, 0);
-		enemy.moveStart();
-		enemy2.moveStart();
-		enemy3.moveStart();
-		enemy4.moveStart();
 	}
 	
 	JPanel getBG() { //JPanel background

@@ -11,11 +11,12 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import java.util.concurrent.*;
 
-public class Rhythm_selcetMusic {
+public class Rhythm_selectMusic {
 	private int selectedMusic = 0;
 	private String selectedMusicName = "";
+	private Thread musicThread;
 	
-	public Rhythm_selcetMusic() {
+	public Rhythm_selectMusic() {
 		setSelectedMusic();
 		String filePath = "./src/ver0_0_1/music.witchmoney"; // 파일 경로를 지정하세요
 	    int lineNumberToRead = selectedMusic; // 읽고 싶은 줄 번호
@@ -37,10 +38,11 @@ public class Rhythm_selcetMusic {
 	    
 	    CountDownLatch latch = new CountDownLatch(1);
 	 // 음악 재생 스레드 시작
-        Thread musicThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+//        musicThread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
                 try {
+                	System.out.println("돌입");
                     File audioFile = new File("audio/rhythm/" + selectedMusicName + ".wav");
                     AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
 
@@ -62,10 +64,8 @@ public class Rhythm_selcetMusic {
                     e.printStackTrace();
                     latch.countDown(); // 예외 발생 시도 CountDownLatch 카운트 감소
                 }
-            }
-        });
-
-        musicThread.start();
+//            }
+//        });
 
         // CountDownLatch가 0이 될 때까지 대기
         try {
@@ -83,7 +83,7 @@ public class Rhythm_selcetMusic {
 		this.selectedMusic = (int) (Math.random() * 3) + 1;
 	}
 	
-	public static void main(String[] args) {
-		new Rhythm_selcetMusic();
+	public void musicStart() {
+		musicThread.start();
 	}
 }
