@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -19,6 +21,8 @@ public class Rhythm_moveMonster implements KeyListener{
 	 * 네 번째 줄 1097 800*/
 	private ImageIcon monster;
 	private JLabel enemy;
+	private ArrayList<String> monsterName = new ArrayList<String>(Arrays.asList("red1", "red2", "blue1", "blue2"));
+	
 	private Timer timer = new Timer(10, new ActionListener() {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
@@ -39,15 +43,7 @@ public class Rhythm_moveMonster implements KeyListener{
 	
 	public Rhythm_moveMonster(JPanel bg, int x, int y) {
 		setX(x); setY(y); setBg(bg);
-		String imagePath = "images/rhythm/enemy/red.png";
-		File img = new File(imagePath);
-		if(img.isFile()) {
-			monster = new ImageIcon(imagePath);		
-		}else {
-			JOptionPane.showMessageDialog(null, "이미지 로딩 오류");
-			System.exit(0);
-		}
-		enemy = new JLabel(monster);
+		randomMonster();
 		
 		// enemy 절대 위치
         enemy.setBounds(x, y, monster.getIconWidth(), monster.getIconHeight());
@@ -132,5 +128,17 @@ public class Rhythm_moveMonster implements KeyListener{
         if (e.getKeyCode() == KeyEvent.VK_A) {
             // 'A' 키가 놓예졌을 때 타이머 다시 시작
         }
+    }
+    
+    public void randomMonster() {
+    	String imagePath = "images/rhythm/enemy/"+ monsterName.get(0) +".png";
+		File img = new File(imagePath);
+		if(img.isFile()) {
+			monster = new ImageIcon(imagePath);		
+		}else {
+			JOptionPane.showMessageDialog(null, "이미지 로딩 오류");
+			System.exit(0);
+		}
+		enemy = new JLabel(monster);
     }
 }
