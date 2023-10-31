@@ -15,10 +15,10 @@ import javax.swing.JFrame;
 public class Rhythm_main extends Thread{
 	Rhythm_main(JFrame base) {
 		Rhythm_bg main = new Rhythm_bg(base, "main_game");
-		Rhythm_moveMonster enemy = new Rhythm_moveMonster(main.getBG(), 690, -100);
-		Rhythm_moveMonster enemy2 = new Rhythm_moveMonster(main.getBG(), 825, -50);
-		Rhythm_moveMonster enemy3 = new Rhythm_moveMonster(main.getBG(), 960, -10);
-		Rhythm_moveMonster enemy4 = new Rhythm_moveMonster(main.getBG(), 1097, 0);
+		Rhythm_moveMonster enemy = new Rhythm_moveMonster(main.getBG(), 1);
+		Rhythm_moveMonster enemy2 = new Rhythm_moveMonster(main.getBG(), 2);
+		Rhythm_moveMonster enemy3 = new Rhythm_moveMonster(main.getBG(), 3);
+		Rhythm_moveMonster enemy4 = new Rhythm_moveMonster(main.getBG(), 4);
 		Thread musicThread = new Thread(new Runnable() {
 			@Override
 	        public void run() {
@@ -28,8 +28,9 @@ public class Rhythm_main extends Thread{
 //		music.musicStart();
 		musicThread.start();
 		enemy.moveStart();
-//		enemy2.moveStart();
-//		enemy3.moveStart();
-//		enemy4.moveStart();
+		enemy2.moveStart();
+		enemy3.moveStart();
+		enemy4.moveStart();
+		
 	}
 }
