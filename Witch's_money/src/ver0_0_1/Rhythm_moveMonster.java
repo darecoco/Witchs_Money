@@ -22,27 +22,14 @@ public class Rhythm_moveMonster implements KeyListener{
 	private ImageIcon monster;
 	private JLabel enemy;
 	private ArrayList<String> monsterName = new ArrayList<String>(Arrays.asList("red1", "red2", "blue1", "blue2"));
-	
-	private Timer timer = new Timer(10, new ActionListener() {
-	    @Override
-	    public void actionPerformed(ActionEvent e) {
-            int move_y = enemy.getY();
-            // y 좌표를 업데이트하여 이미지 이동
-            move_y += 5; // y 좌표를 5 픽셀씩 이동
-
-            // 이미지의 위치를 업데이트
-            enemy.setLocation(x, move_y);
-
-            // 화면 다시 그리기
-            bg.repaint();
-        }
-    });
+	private int lineNum;
+	private int[] linePoint = {690, 825, 960, 1097};
 	private int x, y;
 	private Thread line;
 	private JPanel bg;
 	
-	public Rhythm_moveMonster(JPanel bg, int x, int y) {
-		setX(x); setY(y); setBg(bg);
+	public Rhythm_moveMonster(JPanel bg, int lineNum) {
+		setX(linePoint[lineNum-1]); setY(-200); setBg(bg); setLineNum(lineNum);
 		randomMonster();
 		
 		// enemy 절대 위치
@@ -57,25 +44,36 @@ public class Rhythm_moveMonster implements KeyListener{
         line = new Thread(new Runnable() {
         	@Override
         	public void run() {
-        		timer = new Timer(10, new ActionListener() {
-        		    @Override
-        		    public void actionPerformed(ActionEvent e) {
-                        int move_y = enemy.getY();
-                        // y 좌표를 업데이트하여 이미지 이동
-                        move_y += 5; // y 좌표를 5 픽셀씩 이동
-
-                        // 이미지의 위치를 업데이트
-                        enemy.setLocation(x, move_y);
-
-                        // 화면 다시 그리기
-                        bg.repaint();
-                    }
-                });
-        	}
+        		try {
+        			
+        			while(true) {
+        				int move_y = enemy.getY();
+        				move_y += 5;
+        				line.sleep(7);
+        				enemy.setLocation(x, move_y);
+        				if(move_y > 800) {
+        					reset(x, y);
+        				}
+        				bg.repaint();
+        			}//while
+        			
+        		}catch (InterruptedException e) {
+        			System.err.print(e.getMessage());
+        		}//try catch
+        		
+        	}//run
         });
 
 	}
 	
+	public int getLineNum() {
+		return lineNum;
+	}
+
+	public void setLineNum(int lineNum) {
+		this.lineNum = lineNum;
+	}
+
 	public int getX() {
 		return x;
 	}
@@ -101,34 +99,44 @@ public class Rhythm_moveMonster implements KeyListener{
 	}
 	
 	void moveStart() {
-//		timer.start();
 		line.start();
-		timer.start();
 	}
 	
 	void reset(int x, int y) {
 		enemy.setLocation(x, y);
 	}
-	
-	@Override
-    public void keyTyped(KeyEvent e) {
-        // 사용하지 않음
-    }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_A) {
-            // 'A' 키가 눌렸을 때 타이머 일시 정지
-        	reset(x, y);
-        }
+    	switch(lineNum) {
+    	case 1:
+    		if (e.getKeyCode() == KeyEvent.VK_V) {
+    			//1번줄 : V
+    			System.out.println("1번눌림");
+    		}
+    	case 2:
+    		if (e.getKeyCode() == KeyEvent.VK_B) {
+    			//2번줄 : B
+    			System.out.println("2번눌림");
+    		}
+    	case 3:
+    		if (e.getKeyCode() == KeyEvent.VK_N) {
+    			//3번줄 : N
+    			System.out.println("3번눌림");
+    		}
+    	case 4:
+    		if (e.getKeyCode() == KeyEvent.VK_M) {
+    			//4번줄 : M
+    			System.out.println("4번눌림");
+    		}
+    	}
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_A) {
-            // 'A' 키가 놓예졌을 때 타이머 다시 시작
-        }
-    }
+    public void keyReleased(KeyEvent e) {}
+    
+    @Override
+    public void keyTyped(KeyEvent e) {}
     
     public void randomMonster() {
     	String imagePath = "images/rhythm/enemy/"+ monsterName.get(0) +".png";
