@@ -18,7 +18,7 @@ public class Rhythm_selectMusic {
 	
 	public Rhythm_selectMusic() {
 		setSelectedMusic();
-		String filePath = "./scripts/rhythm1/music.witchmoney"; // 파일 경로를 지정하세요
+		String filePath = "./scripts/rhythm/music.witchmoney"; // 파일 경로를 지정하세요
 	    int lineNumberToRead = selectedMusic; // 읽고 싶은 줄 번호
 
 	    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
