@@ -37,10 +37,6 @@ public class Rhythm_selectMusic {
 	    }
 	    
 	    CountDownLatch latch = new CountDownLatch(1);
-	 // 음악 재생 스레드 시작
-//        musicThread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
                 try {
                 	System.out.println("돌입");
                     File audioFile = new File("audio/rhythm/" + selectedMusicName + ".wav");
@@ -49,7 +45,6 @@ public class Rhythm_selectMusic {
                     Clip clip = AudioSystem.getClip();
                     clip.open(audioStream);
                     clip.start();
-//                    clip.loop(Clip.LOOP_CONTINUOUSLY); //무한반복
 
                     // 음악 재생이 완료되면 CountDownLatch 카운트 감소
                     clip.addLineListener(event -> {
@@ -64,8 +59,6 @@ public class Rhythm_selectMusic {
                     e.printStackTrace();
                     latch.countDown(); // 예외 발생 시도 CountDownLatch 카운트 감소
                 }
-//            }
-//        });
 
         // CountDownLatch가 0이 될 때까지 대기
         try {
@@ -80,7 +73,7 @@ public class Rhythm_selectMusic {
 	}
 
 	public void setSelectedMusic() {
-		this.selectedMusic = (int) (Math.random() * 3) + 1;
+		this.selectedMusic = (int) (Math.random() * 0) + 1;
 	}
 	
 	public void musicStart() {
