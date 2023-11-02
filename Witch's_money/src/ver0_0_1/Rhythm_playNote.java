@@ -62,6 +62,7 @@ public class Rhythm_playNote extends Thread{
 			            line4.add(digit);
 			        }
 					break;
+				case 6: break;
 				default : JOptionPane.showMessageDialog(null, "노트를 불러오는 중 에러가 발생하였습니다.");
 				}
 				lineNum++;

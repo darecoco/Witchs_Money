@@ -22,7 +22,7 @@ public class Rhythm_selectMusic {
 	
 	public Rhythm_selectMusic(JPanel bg) {
 		setSelectedMusic();
-	    int lineNumberToRead = selectedMusic; // 읽고 싶은 줄 번호
+	    int lineNumberToRead = 4; // 읽고 싶은 줄 번호
 
 	    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 	        String line;

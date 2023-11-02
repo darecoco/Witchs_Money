@@ -27,7 +27,6 @@ public class Rhythm_moveMonster implements KeyListener{
 	private Thread line;
 	private JPanel bg;
 	private Random random = new Random();
-	private int plss[] = new int[] {0,0,1,1,0,0,1,1};
 	
 	public Rhythm_moveMonster(JPanel bg, int lineNum) {
 		setX(linePoint[lineNum-1]); setY(-150); setBg(bg); setLineNum(lineNum);
@@ -40,7 +39,6 @@ public class Rhythm_moveMonster implements KeyListener{
         bg.setFocusable(true);
         bg.requestFocus();
         bg.add(enemy);
-        bg.repaint();
         
         line = new Thread(new Runnable() {
         	@Override
@@ -55,7 +53,7 @@ public class Rhythm_moveMonster implements KeyListener{
         				if(move_y > 900) {
         					reset();
         				}
-        				bg.repaint();
+//        				bg.repaint();
         			}//while
         			
         		}catch (InterruptedException e) {
@@ -106,10 +104,10 @@ public class Rhythm_moveMonster implements KeyListener{
 	
 	void reset() {
 		bg.removeKeyListener(this);
-		enemy.setVisible(false);
+		bg.remove(enemy);
+		bg.repaint();
 		enemy = null;
 		line.stop();
-		bg.repaint();
 	}
 
     @Override
