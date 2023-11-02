@@ -9,7 +9,7 @@ public class Cooperation{
 	
 	Cooperation(){
 		base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		base.setTitle("메인화면");
+		base.setTitle("마녀의 생활고");
 		base.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		base.setUndecorated(true);
 		base.setLocationRelativeTo(null);
