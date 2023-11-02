@@ -8,12 +8,6 @@ public class Rhythm_main extends Thread{
 	Rhythm_main(JFrame base) {
 		Rhythm_bg main = new Rhythm_bg(base, "main_game");
 		int plss[] = new int[] {0,1,1,1,1,1,1,1};
-//		Rhythm_moveMonster[] enermy = new Rhythm_moveMonster[] {
-//				new Rhythm_moveMonster(main.getBG(), 1),
-//				new Rhythm_moveMonster(main.getBG(), 2),
-//				new Rhythm_moveMonster(main.getBG(), 3),
-//				new Rhythm_moveMonster(main.getBG(), 4)
-//		};
 		
 		Thread test = new Thread(new Runnable() {
 			@Override
@@ -21,7 +15,7 @@ public class Rhythm_main extends Thread{
 				int len = plss.length;
 				for(int i = 0; i < len; i++) {
 					try {
-						Thread.sleep(500);
+						Thread.sleep(700);
 						if(plss[i] == 1) {
 							new Rhythm_moveMonster(main.getBG(), 1);
 						}
@@ -32,8 +26,6 @@ public class Rhythm_main extends Thread{
 			}
 		});
 		
-//		for(Rhythm_moveMonster pls : enermy) {}//생성자만 실행
-		
 		Thread musicThread = new Thread(new Runnable() {
 			@Override
 	        public void run() {
@@ -41,6 +33,5 @@ public class Rhythm_main extends Thread{
 			}
 		});
 		musicThread.start();
-		test.start();
 	}
 }

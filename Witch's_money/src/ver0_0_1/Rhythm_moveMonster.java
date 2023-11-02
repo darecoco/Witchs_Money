@@ -24,13 +24,13 @@ public class Rhythm_moveMonster implements KeyListener{
 	private int[] linePoint = {690, 825, 960, 1097};
 	private int x, y;
 	private int move_y;
-	private int speed;
 	private Thread line;
 	private JPanel bg;
 	private Random random = new Random();
+	private int plss[] = new int[] {0,0,1,1,0,0,1,1};
 	
-	public Rhythm_moveMonster(JPanel bg, int lineNum, int speed) {
-		setX(linePoint[lineNum-1]); setY(-150); setBg(bg); setLineNum(lineNum); setSpeed(speed);
+	public Rhythm_moveMonster(JPanel bg, int lineNum) {
+		setX(linePoint[lineNum-1]); setY(-150); setBg(bg); setLineNum(lineNum);
 		randomMonster();
 		
 		// enemy 절대 위치
@@ -51,12 +51,12 @@ public class Rhythm_moveMonster implements KeyListener{
         			
         			while(true) {
         				move_y = enemy.getY();
-        				move_y += speed;
+        				move_y += 7;
         				line.sleep(7);
         				enemy.setLocation(x, move_y);
-//        				if(move_y > 900) {
-//        					reset();
-//        				}
+        				if(move_y > 900) {
+        					reset();
+        				}
         				bg.repaint();
         			}//while
         			
@@ -68,14 +68,6 @@ public class Rhythm_moveMonster implements KeyListener{
         });
         moveStart();
 
-	}
-	
-	public int getSpeed() {
-		return speed;
-	}
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
 	}
 
 	public int getLineNum() {
@@ -130,25 +122,30 @@ public class Rhythm_moveMonster implements KeyListener{
     			//1번줄 : V
     			System.out.println("1번눌림");
     			reset();
+    			
     		}
+    		break;
     	case 2:
     		if (e.getKeyCode() == KeyEvent.VK_B && move_y >= 650) {
     			//2번줄 : B
     			System.out.println("2번눌림");
     			reset();
     		}
+    		break;
     	case 3:
     		if (e.getKeyCode() == KeyEvent.VK_N && move_y >= 650) {
     			//3번줄 : N
     			System.out.println("3번눌림");
     			reset();
     		}
+    		break;
     	case 4:
     		if (e.getKeyCode() == KeyEvent.VK_M && move_y >= 650) {
     			//4번줄 : M
     			System.out.println("4번눌림");
     			reset();
     		}
+    		break;
     	}
     }
 
