@@ -17,6 +17,10 @@ public class Rhythm_playNote extends Thread{
 	private ArrayList<Integer> line2 = new ArrayList<Integer>();
 	private ArrayList<Integer> line3 = new ArrayList<Integer>();
 	private ArrayList<Integer> line4 = new ArrayList<Integer>();
+	private Thread note1;
+	private Thread note2;
+	private Thread note3;
+	private Thread note4;
 	
 	Rhythm_playNote(String title, JPanel bg){
 		setMusicName(title); setFilePath(filePath + musicName + ".witchmoney");
@@ -66,7 +70,7 @@ public class Rhythm_playNote extends Thread{
 			e.printStackTrace();
 		}
 		
-		Thread note1 = new Thread(new Runnable() {
+		note1 = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				int len = line1.size();
@@ -82,7 +86,7 @@ public class Rhythm_playNote extends Thread{
 				}
 			}
 		});
-		Thread note2 = new Thread(new Runnable() {
+		note2 = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				int len = line2.size();
@@ -98,7 +102,7 @@ public class Rhythm_playNote extends Thread{
 				}
 			}
 		});
-		Thread note3 = new Thread(new Runnable() {
+		note3 = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				int len = line3.size();
@@ -114,7 +118,7 @@ public class Rhythm_playNote extends Thread{
 				}
 			}
 		});
-		Thread note4 = new Thread(new Runnable() {
+		note4 = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				int len = line4.size();
@@ -131,12 +135,14 @@ public class Rhythm_playNote extends Thread{
 			}
 		});
 		
+		
+	}
+	public void startNote() {
 		note1.start();
 		note2.start();
 		note3.start();
 		note4.start();
 	}
-	
 	public String getMusicName() {
 		return musicName;
 	}

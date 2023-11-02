@@ -36,8 +36,6 @@ public class Rhythm_moveMonster implements KeyListener{
 		// enemy 절대 위치
         enemy.setBounds(x, y, monster.getIconWidth(), monster.getIconHeight());
         
-        
-        
         bg.addKeyListener(this);
         bg.setFocusable(true);
         bg.requestFocus();

@@ -17,10 +17,11 @@ public class Rhythm_selectMusic {
 	private int selectedMusic = 0;
 	private String selectedMusicName = "";
 	private Thread musicThread;
+	private Rhythm_playNote note;
+	private String filePath = "./scripts/rhythm/music.witchmoney";
 	
 	public Rhythm_selectMusic(JPanel bg) {
 		setSelectedMusic();
-		String filePath = "./scripts/rhythm/music.witchmoney"; // 파일 경로를 지정하세요
 	    int lineNumberToRead = selectedMusic; // 읽고 싶은 줄 번호
 
 	    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -40,7 +41,6 @@ public class Rhythm_selectMusic {
 	    
 	    CountDownLatch latch = new CountDownLatch(1);
                 try {
-                	System.out.println("돌입");
                     File audioFile = new File("audio/rhythm/" + selectedMusicName + ".wav");
                     AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
 
@@ -51,11 +51,14 @@ public class Rhythm_selectMusic {
                     // 음악 재생이 완료되면 CountDownLatch 카운트 감소
                     clip.addLineListener(event -> {
                         if (event.getType() == javax.sound.sampled.LineEvent.Type.STOP) {
+                        	// 브금 끝나면 실행되는 부분
+                        	deleteNote();
                             latch.countDown();
                         }
                     });
 
-                    new Rhythm_playNote(selectedMusicName, bg);
+                    note = new Rhythm_playNote(selectedMusicName, bg);
+                    startNote();
 
                 } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                     e.printStackTrace();
@@ -75,10 +78,24 @@ public class Rhythm_selectMusic {
 	}
 
 	public void setSelectedMusic() {
-		this.selectedMusic = (int) (Math.random() * 0) + 1;
+		int line = 0;
+		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+			while(br.readLine() != null) line++;
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		this.selectedMusic = (int) (Math.random() * line) + 1;
 	}
 	
 	public void musicStart() {
 		musicThread.start();
+	}
+	
+	public void startNote() {
+		note.startNote();
+	}
+	
+	public void deleteNote() {
+		note = null;
 	}
 }
