@@ -8,15 +8,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Rhythm_bottomBar extends Thread{
-	private long musicTime;
+	private double musicTime;
 	private JLabel progress;
 	private ImageIcon star;
 	private int x, y;
-	private int move_x;
+	private double move_x;
+	private double speed;
 	private Thread progressing;
 	
-	Rhythm_bottomBar(JPanel bottom, long musicTime){
-		setMusicTime(musicTime); setX(56); setY(966);
+	Rhythm_bottomBar(JPanel bottom, double musicTime){
+		setMusicTime(musicTime); setX(56); setY(966); setSpeed(musicTime);
 		String imagePath = "images/rhythm/bg/progressStar.png";
 		File img = new File(imagePath);
 		if(img.isFile()) {
@@ -26,7 +27,6 @@ public class Rhythm_bottomBar extends Thread{
 			System.exit(0);
 		}
 		progress = new JLabel(star);
-		
 		progress.setBounds(x, y, 100, 100);
 		bottom.add(progress);
 		bottom.repaint();
@@ -35,11 +35,15 @@ public class Rhythm_bottomBar extends Thread{
 			@Override
 			public void run() {
 					try {
+						move_x = progress.getX();
 						while(true) {
-							move_x = progress.getX();
-							move_x += 5;
-							Thread.sleep(500);
-							progress.setLocation(move_x, 966);
+							if(move_x + speed > 1762) {
+								move_x = 1762;
+							}else {
+								move_x += speed;
+							}
+							Thread.sleep(200);
+							progress.setLocation((int)move_x, 966);
 						}
 					} catch (InterruptedException e) {
 						e.printStackTrace();
@@ -67,12 +71,20 @@ public class Rhythm_bottomBar extends Thread{
 		this.y = y;
 	}
 
-	public long getMusicTime() {
+	public double getMusicTime() {
 		return musicTime;
 	}
 
-	public void setMusicTime(long musicTime) {
+	public void setMusicTime(double musicTime) {
 		this.musicTime = musicTime;
+	}
+
+	public double getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(double musicTime) {
+		this.speed = 1705.0/(musicTime*5.0);
 	}
 
 }
