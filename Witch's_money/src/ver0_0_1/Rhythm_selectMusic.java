@@ -18,6 +18,7 @@ public class Rhythm_selectMusic {
 	private String selectedMusicName = "";
 	private Thread musicThread;
 	private Rhythm_playNote note;
+	private boolean endMusic = false;
 	private String filePath = "./scripts/rhythm/music.witchmoney";
 	
 	public Rhythm_selectMusic(JPanel bg) {
@@ -53,6 +54,8 @@ public class Rhythm_selectMusic {
                         if (event.getType() == javax.sound.sampled.LineEvent.Type.STOP) {
                         	// 브금 끝나면 실행되는 부분
                         	deleteNote();
+                        	setEndMusic(true);
+                        	System.out.println("음악 끝남");
                             latch.countDown();
                         }
                     });
@@ -72,6 +75,14 @@ public class Rhythm_selectMusic {
             e.printStackTrace();
         }
     }
+
+	public boolean isEndMusic() {
+		return endMusic;
+	}
+
+	public void setEndMusic(boolean endMusic) {
+		this.endMusic = endMusic;
+	}
 
 	public int getSelectedMusic() {
 		return selectedMusic;

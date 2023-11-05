@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 /* 리듬게임과 무역게임을 합치는 클래스 */
 
-public class Cooperation{
+public class Cooperation extends Thread{
 	private JFrame base = new JFrame();
 	
 	Cooperation(){
@@ -16,7 +16,29 @@ public class Cooperation{
 		base.setLayout(null);
 		base.setVisible(true);
 		
-		new Rhythm_main(getFrame());
+		Thread rhythmGame = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Rhythm_main rg = new Rhythm_main(getFrame());
+			}
+		});
+		Thread tradeGame = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				System.out.println("언제 출력되는감");
+				
+			}
+		});
+		
+		try {
+			rhythmGame.start();
+			rhythmGame.join();
+			
+			tradeGame.start();
+			tradeGame.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	JFrame getFrame() {
