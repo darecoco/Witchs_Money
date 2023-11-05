@@ -53,12 +53,15 @@ public class Rhythm_moveMonster implements KeyListener{
         				if(move_y > 900) {
         					reset();
         				}
-//        				bg.repaint();
         			}//while
         			
         		}catch (InterruptedException e) {
-        			System.err.print(e.getMessage());
-        		}//try catch
+        			// 노트 점수 매기기
+        		}finally{
+        			bg.remove(enemy);
+        			bg.repaint();
+        			enemy = null;
+        		}
         		
         	}//run
         });
@@ -104,10 +107,7 @@ public class Rhythm_moveMonster implements KeyListener{
 	
 	void reset() {
 		bg.removeKeyListener(this);
-		bg.remove(enemy);
-		bg.repaint();
-		enemy = null;
-		line.stop();
+		line.interrupt();
 	}
 
     @Override
@@ -116,29 +116,24 @@ public class Rhythm_moveMonster implements KeyListener{
     	case 1:
     		if (e.getKeyCode() == KeyEvent.VK_V && move_y >= 650) {
     			//1번줄 : V
-    			System.out.println("1번눌림");
     			reset();
-    			
     		}
     		break;
     	case 2:
     		if (e.getKeyCode() == KeyEvent.VK_B && move_y >= 650) {
     			//2번줄 : B
-    			System.out.println("2번눌림");
     			reset();
     		}
     		break;
     	case 3:
     		if (e.getKeyCode() == KeyEvent.VK_N && move_y >= 650) {
     			//3번줄 : N
-    			System.out.println("3번눌림");
     			reset();
     		}
     		break;
     	case 4:
     		if (e.getKeyCode() == KeyEvent.VK_M && move_y >= 650) {
     			//4번줄 : M
-    			System.out.println("4번눌림");
     			reset();
     		}
     		break;
