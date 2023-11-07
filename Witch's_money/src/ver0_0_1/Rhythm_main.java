@@ -6,17 +6,15 @@ import javax.swing.JFrame;
 
 public class Rhythm_main extends Thread{
 	private JFrame base;
-
+	private boolean temp;
 	private Rhythm_bg main;
-	private Rhythm_bottomBar bt;
 	private Rhythm_selectMusic music;
+	private Rhythm_result res;
 	
 	Rhythm_main(JFrame base) {
 		setBase(base);
 		setMain(new Rhythm_bg(getBase(), "main_game"));
-		setBt(new Rhythm_bottomBar(main.getBG(), 73));
-		bt.startProgress();
-		music = new Rhythm_selectMusic(main.getBG());
+		setMusic(new Rhythm_selectMusic(main.getBG()));
 
 		while(true) {
 			if(music.isEndMusic()) {
@@ -24,6 +22,15 @@ public class Rhythm_main extends Thread{
 				break;
 			}
 		}
+		
+		music = null;
+		setRes(new Rhythm_result(main.getBG(), 3, 3));
+//		res.help();
+		
+		// 스페이스바 입력을 대기
+        res.getSpace();
+        
+        System.out.println(res.isGoNext());
 	}//생성자
 	
 	public JFrame getBase() {
@@ -41,20 +48,19 @@ public class Rhythm_main extends Thread{
 	public void setMain(Rhythm_bg main) {
 		this.main = main;
 	}
-	
-	public Rhythm_bottomBar getBt() {
-		return bt;
-	}
-	
-	public void setBt(Rhythm_bottomBar bt) {
-		this.bt = bt;
-	}
-	
 	public Rhythm_selectMusic getMusic() {
 		return music;
 	}
 	
 	public void setMusic(Rhythm_selectMusic music) {
 		this.music = music;
+	}
+
+	public Rhythm_result getRes() {
+		return res;
+	}
+
+	public void setRes(Rhythm_result res) {
+		this.res = res;
 	}
 }
