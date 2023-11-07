@@ -42,7 +42,8 @@ public class Rhythm_bg{
 	}
 	
 	void changeBG(JFrame base, String room) {
-		
+		base.remove(background);
+		background = null;
 		String imagePath = "images/rhythm/bg/" + room + ".png";
 		File img = new File(imagePath);
 		if(img.isFile()) {

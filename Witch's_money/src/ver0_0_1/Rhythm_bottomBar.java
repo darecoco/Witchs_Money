@@ -50,6 +50,8 @@ public class Rhythm_bottomBar extends Thread{
 					}
 			}
 		});
+		
+		startProgress();
 	}
 	
 	public void startProgress() {
