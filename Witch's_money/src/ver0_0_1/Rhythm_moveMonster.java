@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
@@ -24,6 +25,7 @@ public class Rhythm_moveMonster implements KeyListener{
 	private int[] linePoint = {690, 825, 960, 1097};
 	private int x, y;
 	private int move_y;
+	private int blue=0, red=0;
 	private Thread line;
 	private JPanel bg;
 	private Random random = new Random();
@@ -56,17 +58,24 @@ public class Rhythm_moveMonster implements KeyListener{
         			}//while
         			
         		}catch (InterruptedException e) {
-        			// 노트 점수 매기기
+        			judge(getLineNum(), enemy.getY()); //노트 점수 매기기
         		}finally{
         			bg.remove(enemy);
         			bg.repaint();
         			enemy = null;
         		}
-        		
         	}//run
         });
         moveStart();
 
+	}
+	
+	public int getItems() {
+		if(getLineNum() % 2 == 0) {
+			return this.blue;
+		}else{
+			return this.red;
+		}
 	}
 
 	public int getLineNum() {
@@ -108,6 +117,30 @@ public class Rhythm_moveMonster implements KeyListener{
 	void reset() {
 		bg.removeKeyListener(this);
 		line.interrupt();
+	}
+	
+	void judge(int line, int y) {
+		if(line % 2 == 0) { // 짝수 : 파랑줄
+			if(y <= 700) {
+				this.blue += 3;
+			}else if(y <= 780) {
+				this.blue += 5;
+			}else if(y <= 820) {
+				this.blue += 3;
+			}else if(y <= 899) {
+				this.blue += 1;
+			}
+		}else{ //홀수 : 빨강줄
+			if(y <= 700) {
+				this.red += 3;
+			}else if(y <= 780) {
+				this.red += 5;
+			}else if(y <= 820) {
+				this.red += 3;
+			}else if(y <= 899) {
+				this.red += 1;
+			}
+		}
 	}
 
     @Override

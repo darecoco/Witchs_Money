@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.concurrent.CountDownLatch;
 
 import javax.sound.sampled.AudioInputStream;
@@ -20,18 +21,18 @@ public class Rhythm_selectMusic {
 	private Rhythm_playNote note;
 	private boolean endMusic = false;
 	private String filePath = "./scripts/rhythm/music.witchmoney";
+	private HashMap<String, Integer> items = new HashMap<>();
 	
 	public Rhythm_selectMusic(JPanel bg) {
 		setSelectedMusic();
-	    int lineNumberToRead = 4; // 읽고 싶은 줄 번호
 
 	    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 	        String line;
 	        int lineNumber = 0;
 	        while ((line = br.readLine()) != null) {
 	            lineNumber++;
-	            if (lineNumber == lineNumberToRead) {
-	                System.out.println("Line " + lineNumberToRead + " : " + line);
+	            if (lineNumber == selectedMusic) {
+	                System.out.println("Line " + selectedMusic + " : " + line);
 	                selectedMusicName = line;
 	                break; // 원하는 줄을 찾았으므로 반복문 종료
 	            }
@@ -53,14 +54,16 @@ public class Rhythm_selectMusic {
                     clip.addLineListener(event -> {
                         if (event.getType() == javax.sound.sampled.LineEvent.Type.STOP) {
                         	// 브금 끝나면 실행되는 부분
+                        	setItems(note.getItems());
                         	deleteNote();
                         	setEndMusic(true);
                         	System.out.println("음악 끝남");
                             latch.countDown();
                         }
                     });
-
                     note = new Rhythm_playNote(selectedMusicName, bg);
+                    System.out.println(note.getMusicTime());
+                    new Rhythm_bottomBar(bg, note.getMusicTime());
                     startNote();
 
                 } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
@@ -95,7 +98,8 @@ public class Rhythm_selectMusic {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		this.selectedMusic = (int) (Math.random() * line) + 1;
+//		this.selectedMusic = (int) (Math.random() * line) + 1;
+		this.selectedMusic = 5;
 	}
 	
 	public void musicStart() {
@@ -108,5 +112,13 @@ public class Rhythm_selectMusic {
 	
 	public void deleteNote() {
 		note = null;
+	}
+	
+	public HashMap<String, Integer> getItems() {
+		return items;
+	}
+	
+	public void setItems(HashMap<String, Integer> items) {
+		this.items = items;
 	}
 }

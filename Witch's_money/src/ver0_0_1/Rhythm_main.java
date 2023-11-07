@@ -1,12 +1,14 @@
 package ver0_0_1;
 
+import java.util.HashMap;
+
 import javax.swing.JFrame;
 
 /* 리듬게임을 합친 완성형 클래스 */
 
 public class Rhythm_main extends Thread{
 	private JFrame base;
-	private boolean temp;
+	private HashMap<String, Integer> item = new HashMap<>();
 	private Rhythm_bg main;
 	private Rhythm_selectMusic music;
 	private Rhythm_result res;
@@ -22,9 +24,9 @@ public class Rhythm_main extends Thread{
 				break;
 			}
 		}
-		
+		setItem(music.getItems());
 		music = null;
-		setRes(new Rhythm_result(main.getBG(), 3, 3));
+		setRes(new Rhythm_result(main.getBG(), getItem().get("blue"), getItem().get("red")));
 //		res.help();
 		
 		// 스페이스바 입력을 대기
@@ -62,5 +64,13 @@ public class Rhythm_main extends Thread{
 
 	public void setRes(Rhythm_result res) {
 		this.res = res;
+	}
+
+	public HashMap<String, Integer> getItem() {
+		return item;
+	}
+
+	public void setItem(HashMap<String, Integer> item) {
+		this.item = item;
 	}
 }

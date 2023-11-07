@@ -5,12 +5,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class Rhythm_playNote extends Thread{
+	private JPanel bg;
 	private long bpm;
+	private double musicTime;
 	private String musicName;
 	private String filePath = "scripts/rhythm/";
 	private ArrayList<Integer> line1 = new ArrayList<Integer>();
@@ -21,9 +24,10 @@ public class Rhythm_playNote extends Thread{
 	private Thread note2;
 	private Thread note3;
 	private Thread note4;
+	private HashMap<String, Integer> items = new HashMap<> ();
 	
 	Rhythm_playNote(String title, JPanel bg){
-		setMusicName(title); setFilePath(filePath + musicName + ".witchmoney");
+		setMusicName(title); setFilePath(filePath + musicName + ".witchmoney"); setBg(bg); setBaseItems();
 		
 		File note = new File(filePath);
 		try(BufferedReader reader = new BufferedReader(new FileReader(note.getPath()))){
@@ -62,7 +66,9 @@ public class Rhythm_playNote extends Thread{
 			            line4.add(digit);
 			        }
 					break;
-				case 6: break;
+				case 6:
+					this.musicTime = Double.parseDouble(line);
+					break;
 				default : JOptionPane.showMessageDialog(null, "노트를 불러오는 중 에러가 발생하였습니다.");
 				}
 				lineNum++;
@@ -79,7 +85,19 @@ public class Rhythm_playNote extends Thread{
 					try {
 						Thread.sleep(bpm);
 						if(line1.get(i) == 1) {
-							new Rhythm_moveMonster(bg, 1);
+							Thread temp1 = new Thread(new Runnable() {
+								@Override
+								public void run() {
+									Rhythm_moveMonster l1 = new Rhythm_moveMonster(bg, 1);
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										e.printStackTrace();
+									}
+									items.put("red", items.get("red") + l1.getItems());
+								}
+							});
+							temp1.start();
 						}
 					}catch(InterruptedException e) {
 						e.printStackTrace();
@@ -95,7 +113,19 @@ public class Rhythm_playNote extends Thread{
 					try {
 						Thread.sleep(bpm);
 						if(line2.get(i) == 1) {
-							new Rhythm_moveMonster(bg, 2);
+							Thread temp2 = new Thread(new Runnable() {
+								@Override
+								public void run() {
+									Rhythm_moveMonster l2 = new Rhythm_moveMonster(bg, 2);
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										e.printStackTrace();
+									}
+									items.put("blue", items.get("blue") + l2.getItems());
+								}
+							});
+							temp2.start();
 						}
 					}catch(InterruptedException e) {
 						e.printStackTrace();
@@ -111,7 +141,19 @@ public class Rhythm_playNote extends Thread{
 					try {
 						Thread.sleep(bpm);
 						if(line3.get(i) == 1) {
-							new Rhythm_moveMonster(bg, 3);
+							Thread temp3 = new Thread(new Runnable() {
+								@Override
+								public void run() {
+									Rhythm_moveMonster l3 = new Rhythm_moveMonster(bg, 3);
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										e.printStackTrace();
+									}
+									items.put("red", items.get("red") + l3.getItems());
+								}
+							});
+							temp3.start();
 						}
 					}catch(InterruptedException e) {
 						e.printStackTrace();
@@ -127,7 +169,19 @@ public class Rhythm_playNote extends Thread{
 					try {
 						Thread.sleep(bpm);
 						if(line4.get(i) == 1) {
-							new Rhythm_moveMonster(bg, 4);
+							Thread temp4 = new Thread(new Runnable() {
+								@Override
+								public void run() {
+									Rhythm_moveMonster l4 = new Rhythm_moveMonster(bg, 4);
+									try {
+										Thread.sleep(1000);
+									} catch (InterruptedException e) {
+										e.printStackTrace();
+									}
+									items.put("blue", items.get("blue") + l4.getItems());
+								}
+							});
+							temp4.start();
 						}
 					}catch(InterruptedException e) {
 						e.printStackTrace();
@@ -135,9 +189,8 @@ public class Rhythm_playNote extends Thread{
 				}
 			}
 		});
-		
-		
 	}
+	
 	public void startNote() {
 		note1.start();
 		note2.start();
@@ -156,6 +209,24 @@ public class Rhythm_playNote extends Thread{
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
-	
+	public double getMusicTime() {
+		return musicTime;
+	}
+	public void setMusicTime(double musicTime) {
+		this.musicTime = (double)musicTime;
+	}
+	public JPanel getBg() {
+		return bg;
+	}
+	public void setBg(JPanel bg) {
+		this.bg = bg;
+	}
+	public HashMap<String, Integer> getItems() {
+		return items;
+	}
+	public void setBaseItems() {
+		items.put("red", 0);
+		items.put("blue", 0);
+	}
 	
 }
