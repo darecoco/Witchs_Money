@@ -22,6 +22,7 @@ public class Cooperation extends Thread{
 				Rhythm_main rg = new Rhythm_main(getFrame());
 			}
 		});
+		
 		Thread tradeGame = new Thread(new Runnable() {
 			@Override
 			public void run() {
