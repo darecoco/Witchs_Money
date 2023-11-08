@@ -31,8 +31,10 @@ public class Rhythm_main extends Thread{
 		
 		// 스페이스바 입력을 대기
         res.getSpace();
-        
-        System.out.println(res.isGoNext());
+        base = null;
+        item = null;
+        main = null;
+        res = null;
 	}//생성자
 	
 	public JFrame getBase() {
