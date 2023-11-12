@@ -121,23 +121,23 @@ public class Rhythm_moveMonster implements KeyListener{
 	
 	void judge(int line, int y) {
 		if(line % 2 == 0) { // 짝수 : 파랑줄
-			if(y <= 700) {
+			if(y <= 685) {
 				this.blue += 3;
-			}else if(y <= 780) {
+			}else if(y <= 740) {
 				this.blue += 5;
 			}else if(y <= 820) {
 				this.blue += 3;
-			}else if(y <= 899) {
+			}else {
 				this.blue += 1;
 			}
 		}else{ //홀수 : 빨강줄
-			if(y <= 700) {
+			if(y <= 685) {
 				this.red += 3;
-			}else if(y <= 780) {
+			}else if(y <= 740) {
 				this.red += 5;
 			}else if(y <= 820) {
 				this.red += 3;
-			}else if(y <= 899) {
+			}else {
 				this.red += 1;
 			}
 		}
