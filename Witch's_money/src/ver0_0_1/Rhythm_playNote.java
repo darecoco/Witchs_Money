@@ -37,6 +37,7 @@ public class Rhythm_playNote extends Thread{
 				switch(lineNum) {
 				case 1: 
 					this.bpm = Long.parseLong(line);
+					System.out.println("맨 윗줄 : " + bpm);
 					break;
 				case 2:
 					for (int i = 0; i < line.length(); i++) {
