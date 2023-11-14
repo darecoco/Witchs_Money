@@ -1,11 +1,18 @@
 package ver0_0_1;
 
+import java.util.HashMap;
+
 import javax.swing.JFrame;
 
 /* 리듬게임과 무역게임을 합치는 클래스 */
 
 public class Cooperation extends Thread{
 	private JFrame base = new JFrame();
+	private HashMap<String, Integer> item = new HashMap<>();
+	private Rhythm_main rg;
+	private Trade_main tg;
+	private Thread rhythmGame;
+	private Thread tradeGame;
 	
 	Cooperation(){
 		base.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -16,33 +23,41 @@ public class Cooperation extends Thread{
 		base.setLayout(null);
 		base.setVisible(true);
 		
-		Thread rhythmGame = new Thread(new Runnable() {
+		while(true) startGame();
+		
+	}
+	
+	public JFrame getFrame() {
+		return base;
+	}
+	
+	public void startGame() {
+		rhythmGame = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Rhythm_main rg = new Rhythm_main(getFrame());
+				rg = new Rhythm_main(getFrame());
 			}
 		});
 		
-		Thread tradeGame = new Thread(new Runnable() {
+		tradeGame = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				System.out.println("언제 출력되는감");
+				item = rg.getItem();
+				rg.setItem(null);
+				rg = null;
+				tg = new Trade_main(getFrame(), item);
 				
 			}
 		});
 		
 		try {
-			rhythmGame.start();
-			rhythmGame.join();
-			
-			tradeGame.start();
-			tradeGame.join();
+				rhythmGame.start();
+				rhythmGame.join();
+				
+				tradeGame.start();
+				tradeGame.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	JFrame getFrame() {
-		return base;
 	}
 }
