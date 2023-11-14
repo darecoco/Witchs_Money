@@ -114,6 +114,9 @@ public class Rhythm_bg{
 //		help.setBounds(1405, 820, 300, 80);
 		exit.setBounds(1405, 950, 300, 80);
 		
+		ready.setBorderPainted(false);
+		exit.setBorderPainted(false);
+		
 		ready.addActionListener(e ->{
 			this.gameStart = 1;
 		});

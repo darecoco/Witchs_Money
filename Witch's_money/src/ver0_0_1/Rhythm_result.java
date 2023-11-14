@@ -69,7 +69,6 @@ public class Rhythm_result{
 			@Override
 			public void keyTyped(KeyEvent e) {
 				setGoNext(true);
-				System.out.println(isGoNext());
 				return;
 			}
 		});

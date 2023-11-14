@@ -19,7 +19,7 @@ public class Rhythm_main extends Thread{
 		main.setLobby();
 		main.startGame();
 		main.changeBG(base, "main_game");
-		
+
 		setMusic(new Rhythm_selectMusic(main.getBG()));
 
 		while(true) {
@@ -31,12 +31,10 @@ public class Rhythm_main extends Thread{
 		setItem(music.getItems());
 		music = null;
 		setRes(new Rhythm_result(main.getBG(), getItem().get("blue"), getItem().get("red")));
-//		res.help();
 		
 		// 스페이스바 입력을 대기
         res.getSpace();
         base = null;
-        item = null;
         main = null;
         res = null;
 	}//생성자

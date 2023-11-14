@@ -32,7 +32,6 @@ public class Rhythm_selectMusic {
 	        while ((line = br.readLine()) != null) {
 	            lineNumber++;
 	            if (lineNumber == selectedMusic) {
-	                System.out.println("Line " + selectedMusic + " : " + line);
 	                selectedMusicName = line;
 	                break; // 원하는 줄을 찾았으므로 반복문 종료
 	            }
@@ -57,12 +56,10 @@ public class Rhythm_selectMusic {
                         	setItems(note.getItems());
                         	deleteNote();
                         	setEndMusic(true);
-                        	System.out.println("음악 끝남");
                             latch.countDown();
                         }
                     });
                     note = new Rhythm_playNote(selectedMusicName, bg);
-                    System.out.println(note.getMusicTime());
                     new Rhythm_bottomBar(bg, note.getMusicTime());
                     startNote();
 
