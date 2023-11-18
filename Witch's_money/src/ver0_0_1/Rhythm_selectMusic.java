@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 public class Rhythm_selectMusic {
 	private int selectedMusic = 0;
 	private String selectedMusicName = "";
-	private Thread musicThread;
 	private Rhythm_playNote note;
+	private Clip music;
 	private boolean endMusic = false;
 	private String filePath = "./scripts/rhythm/music.witchmoney";
 	private HashMap<String, Integer> items = new HashMap<>();
@@ -45,12 +45,11 @@ public class Rhythm_selectMusic {
                     File audioFile = new File("audio/rhythm/" + selectedMusicName + ".wav");
                     AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
 
-                    Clip clip = AudioSystem.getClip();
-                    clip.open(audioStream);
-                    clip.start();
+                    music = AudioSystem.getClip();
+                    music.open(audioStream);
 
                     // 음악 재생이 완료되면 CountDownLatch 카운트 감소
-                    clip.addLineListener(event -> {
+                    music.addLineListener(event -> {
                         if (event.getType() == javax.sound.sampled.LineEvent.Type.STOP) {
                         	// 브금 끝나면 실행되는 부분
                         	setItems(note.getItems());
@@ -61,7 +60,9 @@ public class Rhythm_selectMusic {
                     });
                     note = new Rhythm_playNote(selectedMusicName, bg);
                     new Rhythm_bottomBar(bg, note.getMusicTime());
-                    startNote();
+                    music.start();
+                    note.startNote();
+//                    startMusic();
 
                 } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                     e.printStackTrace();
@@ -87,6 +88,11 @@ public class Rhythm_selectMusic {
 	public int getSelectedMusic() {
 		return selectedMusic;
 	}
+	
+	public void startMusic() {
+		startNote();
+        music.start();
+	}
 
 	public void setSelectedMusic() {
 		int line = 0;
@@ -97,10 +103,6 @@ public class Rhythm_selectMusic {
 		}
 //		this.selectedMusic = (int) (Math.random() * line) + 1;
 		this.selectedMusic = 5;
-	}
-	
-	public void musicStart() {
-		musicThread.start();
 	}
 	
 	public void startNote() {

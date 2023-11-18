@@ -15,12 +15,13 @@ public class Rhythm_result{
 	private boolean goNext;
 
 	public Rhythm_result(JPanel bg, int cyan, int ruddy){
+		System.out.println(cyan+", "+ruddy);
 		setBg(bg); setCyan(cyan); setRuddy(ruddy); setGoNext(false);
 		JLabel blue = new JLabel(Integer.toString(getCyan()));
 		JLabel red = new JLabel(Integer.toString(getRuddy()));
 
-		blue.setBounds(455, 656, 300, 150);
-		red.setBounds(1050, 656, 300, 150);
+		blue.setBounds(485, 656, 300, 150);
+		red.setBounds(1080, 656, 300, 150);
 		blue.setFont(new Font("EASTARJET Heavy", Font.PLAIN, 150));
 		blue.setHorizontalAlignment(JLabel.CENTER);
 		blue.setForeground(Color.cyan);
@@ -30,6 +31,8 @@ public class Rhythm_result{
 
 		getBg().add(blue);
 		getBg().add(red);
+		
+		getBg().repaint();
 	}
 
 	public JPanel getBg() {

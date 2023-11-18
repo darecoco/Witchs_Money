@@ -15,7 +15,7 @@ public class Rhythm_main extends Thread{
 	
 	Rhythm_main(JFrame base) {
 		setBase(base);
-		setMain(new Rhythm_bg(getBase(), "main_start5"));
+		setMain(new Rhythm_bg(getBase(), "main_start"));
 		main.setLobby();
 		main.startGame();
 		main.changeBG(base, "main_game");
