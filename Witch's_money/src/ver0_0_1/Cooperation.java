@@ -23,7 +23,7 @@ public class Cooperation extends Thread{
 		base.setLayout(null);
 		base.setVisible(true);
 		
-		while(true) startGame();
+		/*while(true) */startGame();
 		
 	}
 	
