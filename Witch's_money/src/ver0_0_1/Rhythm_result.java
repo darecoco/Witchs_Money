@@ -15,7 +15,6 @@ public class Rhythm_result{
 	private boolean goNext;
 
 	public Rhythm_result(JPanel bg, int cyan, int ruddy){
-		System.out.println(cyan+", "+ruddy);
 		setBg(bg); setCyan(cyan); setRuddy(ruddy); setGoNext(false);
 		JLabel blue = new JLabel(Integer.toString(getCyan()));
 		JLabel red = new JLabel(Integer.toString(getRuddy()));
