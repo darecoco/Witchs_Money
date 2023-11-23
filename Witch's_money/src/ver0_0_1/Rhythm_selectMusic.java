@@ -14,7 +14,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JPanel;
 
-public class Rhythm_selectMusic {
+public class Rhythm_selectMusic extends Thread{
 	private int selectedMusic = 0;
 	private String selectedMusicName = "";
 	private Rhythm_playNote note;
@@ -60,8 +60,23 @@ public class Rhythm_selectMusic {
                     });
                     note = new Rhythm_playNote(selectedMusicName, bg);
                     new Rhythm_bottomBar(bg, note.getMusicTime());
-                    music.start();
-                    note.startNote();
+                    
+                    Thread bgm = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                        	music.start();
+                        }
+                    });
+
+                    Thread notestep = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            note.startNote();
+                        }
+                    });
+
+                    bgm.start();
+                    notestep.start();
 //                    startMusic();
 
                 } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {

@@ -23,7 +23,7 @@ public class Cooperation extends Thread{
 		base.setLayout(null);
 		base.setVisible(true);
 		
-		/*while(true) */startGame();
+		while(true) startGame();
 		
 	}
 	
@@ -46,7 +46,6 @@ public class Cooperation extends Thread{
 				rg.setItem(null);
 				rg = null;
 				tg = new Trade_main(getFrame(), item);
-				
 			}
 		});
 		

@@ -11,34 +11,14 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.JOptionPane;
 
 public class Trade_bgm {
-	String bgm;
-	String market;
-	Clip clip;
+	private String bgm;
+	private String market;
+	private Clip clip;
+	private boolean isRunning = true;
 	
 	Trade_bgm(String market){
 		setMarket(market);
 		setBgm();
-		try {
-            File musicFile = new File("audio/trade/"+bgm+".wav");
-            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
-
-            clip = AudioSystem.getClip();
-            clip.open(audioStream);
-
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            clip.start();
-
-            while (true) {
-                try {
-                    Thread.sleep(1000); // 1초마다 체크
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
-            e.printStackTrace();
-        }
 	}
 	
 	public void setMarket(String market) {
@@ -49,8 +29,31 @@ public class Trade_bgm {
 		else if(market.equals("WitchMarket")) bgm = "Wehrmut - Godmode";
 		else bgm = "Landing - Public Memory";
 	}
+	public void startBgm() {
+		try {
+            File musicFile = new File("audio/trade/"+bgm+".wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(musicFile);
+
+            clip = AudioSystem.getClip();
+            clip.open(audioStream);
+
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.start();
+
+            while (isRunning) {
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            clip.stop();
+            clip = null;
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
+	}
 	public void endBgm() {
-		System.out.println("어랏");
-		clip.stop();
+		isRunning = false;
 	}
 }

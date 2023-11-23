@@ -1,29 +1,36 @@
 package ver0_0_1;
 
-import java.awt.Graphics;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class Trade_customer {
 	int x;
 	JPanel bg;
 	JLabel customer, table;
 	String market;
+	HashMap<String, Integer> item;
 	
-	Trade_customer(JPanel bg, String market){
+	Trade_customer(JPanel bg, String market, HashMap<String, Integer> item){
 		setBg(bg); setMarket(market.substring(0, market.length()-6));
+		setItem(item);
 	}
 	
 	public void comeCustomer() {
+		Trade_line line = new Trade_line(getBg(), item);
+		line.hidePanel();
 		paintCustomer();
+		line.readingLine();
+		line.showPanel();
+		line.ended();
 	}
 	
 	public void paintCustomer() {
@@ -49,6 +56,9 @@ public class Trade_customer {
 	public void setMarket(String market) {
 		this.market = market;
 	}
+	public void setItem(HashMap<String, Integer> item) {
+		this.item = item;
+	}
 	
 	public String setCustomer() {
 		int line = 0;
@@ -62,7 +72,7 @@ public class Trade_customer {
 			e.printStackTrace();
 		}
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-			while(line != i++) customer = br.readLine();
+			while(4 != i++) customer = br.readLine();
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
